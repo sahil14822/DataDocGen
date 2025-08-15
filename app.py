@@ -79,7 +79,7 @@ def scrape_content():
         
         # Extract content using trafilatura
         try:
-            content = get_website_text_content(cleaned_url)
+            content = get_website_text_content(str(cleaned_url))
             if not content or len(content.strip()) < 10:
                 flash('No content could be extracted from this URL. The page might be empty or protected.', 'error')
                 return redirect(url_for('index'))
@@ -146,7 +146,7 @@ def api_scrape():
         
         # Extract content
         try:
-            content = get_website_text_content(cleaned_url)
+            content = get_website_text_content(str(cleaned_url))
             if not content or len(content.strip()) < 10:
                 return jsonify({'error': 'No content could be extracted from this URL'}), 400
         except Exception as e:
