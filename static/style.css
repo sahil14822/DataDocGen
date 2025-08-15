@@ -1,0 +1,123 @@
+/* Custom styles for the Web Scraper application */
+
+/* Use Bootstrap's built-in dark theme variables */
+:root {
+    --step-size: 40px;
+}
+
+/* Feature icons styling */
+.feature-icon {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Step indicators */
+.step-item {
+    position: relative;
+}
+
+.step-number {
+    width: var(--step-size);
+    height: var(--step-size);
+    border-radius: 50%;
+    background-color: var(--bs-primary);
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin: 0 auto;
+}
+
+/* Loading state for buttons */
+.btn:disabled {
+    opacity: 0.7;
+}
+
+/* Card hover effects */
+.card {
+    transition: transform 0.2s ease-in-out;
+    border: 1px solid var(--bs-border-color);
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+/* Input focus states */
+.form-control:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .display-5 {
+        font-size: 2rem;
+    }
+    
+    .step-number {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+    
+    .feature-icon {
+        height: 50px;
+    }
+    
+    .feature-icon i {
+        font-size: 1.5rem !important;
+    }
+}
+
+/* Animation for loading states */
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.btn .spinner-border {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Alert styling */
+.alert {
+    border: none;
+    border-radius: 0.5rem;
+}
+
+/* Form validation styles */
+.was-validated .form-control:valid {
+    border-color: var(--bs-success);
+}
+
+.was-validated .form-control:invalid {
+    border-color: var(--bs-danger);
+}
+
+/* Smooth transitions */
+* {
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+/* Ensure proper spacing in containers */
+.container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+/* Footer styling */
+footer hr {
+    opacity: 0.3;
+}
