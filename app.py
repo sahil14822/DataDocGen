@@ -59,27 +59,39 @@ def index():
     """Main page"""
     return render_template('index.html')
 
+@app.route('/test')
+def test_form():
+    """Test form page"""
+    with open('test_form.html', 'r') as f:
+        return f.read()
+
 @app.route('/scrape', methods=['POST'])
 def scrape_content():
     """Scrape website content and generate PDF"""
     try:
+        app.logger.info(f"Received scrape request. Headers: {dict(request.headers)}")
+        app.logger.info(f"Form data: {request.form}")
+        app.logger.info(f"Request data: {request.data}")
+        app.logger.info(f"Content type: {request.content_type}")
+        
         url = request.form.get('url', '').strip()
+        app.logger.info(f"Extracted URL: '{url}'")
         
         if not url:
+            app.logger.warning("No URL provided in form")
+            app.logger.warning("This suggests the form submission isn't working properly")
             flash('Please enter a URL', 'error')
             return redirect(url_for('index'))
         
-        # Validate URL
-        is_valid, cleaned_url = is_valid_url(url)
-        if not is_valid:
-            flash('Please enter a valid URL', 'error')
-            return redirect(url_for('index'))
+        # Add protocol if missing
+        if not url.startswith(('http://', 'https://')):
+            url = 'https://' + url
         
-        app.logger.info(f"Scraping content from: {cleaned_url}")
+        app.logger.info(f"Scraping content from: {url}")
         
         # Extract content using trafilatura
         try:
-            content = get_website_text_content(str(cleaned_url))
+            content = get_website_text_content(url)
             if not content or len(content.strip()) < 10:
                 flash('No content could be extracted from this URL. The page might be empty or protected.', 'error')
                 return redirect(url_for('index'))
@@ -101,7 +113,7 @@ def scrape_content():
         
         # Generate PDF
         try:
-            pdf_buffer = generate_pdf(title, content, cleaned_url)
+            pdf_buffer = generate_pdf(title, content, url)
             
             # Create a temporary file for download
             temp_file = tempfile.NamedTemporaryFile(delete=False, suffix='.pdf')
@@ -139,14 +151,13 @@ def api_scrape():
         if not url:
             return jsonify({'error': 'URL is required'}), 400
         
-        # Validate URL
-        is_valid, cleaned_url = is_valid_url(url)
-        if not is_valid:
-            return jsonify({'error': 'Invalid URL provided'}), 400
+        # Add protocol if missing
+        if not url.startswith(('http://', 'https://')):
+            url = 'https://' + url
         
         # Extract content
         try:
-            content = get_website_text_content(str(cleaned_url))
+            content = get_website_text_content(url)
             if not content or len(content.strip()) < 10:
                 return jsonify({'error': 'No content could be extracted from this URL'}), 400
         except Exception as e:
@@ -168,7 +179,7 @@ def api_scrape():
             'success': True,
             'title': title,
             'content_length': len(content),
-            'url': cleaned_url
+            'url': url
         })
         
     except Exception as e:

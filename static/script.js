@@ -10,46 +10,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // URL validation regex
     const urlRegex = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
     
-    // Real-time URL validation
+    // No URL validation - just remove any styling
     urlInput.addEventListener('input', function() {
-        const url = this.value.trim();
-        const isValid = url === '' || isValidUrl(url);
-        
-        if (url && !isValid) {
-            this.classList.add('is-invalid');
-            this.classList.remove('is-valid');
-        } else if (url && isValid) {
-            this.classList.add('is-valid');
-            this.classList.remove('is-invalid');
-        } else {
-            this.classList.remove('is-valid', 'is-invalid');
-        }
+        this.classList.remove('is-valid', 'is-invalid');
     });
     
-    // Form submission handling
-    form.addEventListener('submit', function(e) {
-        const url = urlInput.value.trim();
-        
-        if (!url) {
-            e.preventDefault();
-            showAlert('Please enter a URL', 'danger');
-            urlInput.focus();
-            return;
-        }
-        
-        if (!isValidUrl(url)) {
-            e.preventDefault();
-            showAlert('Please enter a valid URL', 'danger');
-            urlInput.focus();
-            return;
-        }
-        
-        // Show loading state
-        setLoadingState(true);
-        
-        // The form will submit normally and handle the PDF download
-        // If there's an error, the page will reload with flash messages
-    });
+    // Temporarily disable JavaScript form handling to test
+    // The form will submit naturally without any JavaScript interference
     
     // URL validation function
     function isValidUrl(url) {
