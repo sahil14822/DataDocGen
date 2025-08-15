@@ -1,0 +1,77 @@
+# Web Scraper & Document Generator - Replit AI Prompt
+
+Create a full-stack web application that allows users to scrape website content and download it as a formatted document.
+
+## Requirements:
+
+### Frontend:
+- Clean, modern UI with a URL input field
+- Submit button to start scraping
+- Loading indicator while scraping is in progress
+- Download button that appears after successful scraping
+- Error handling and user feedback messages
+- Responsive design that works on mobile and desktop
+
+### Backend:
+- Web scraping functionality using libraries like BeautifulSoup (Python) or Cheerio (Node.js)
+- Content extraction that captures:
+  - Page title
+  - Main text content (paragraphs, headings)
+  - Remove ads, navigation, and irrelevant content
+  - Basic formatting preservation
+- Document generation in PDF or Word format
+- File serving capability for downloads
+- Input validation and URL sanitization
+- Error handling for invalid URLs or scraping failures
+
+### Technical Stack Options:
+**Option 1 (Python):**
+- Flask/FastAPI backend
+- BeautifulSoup4 for scraping
+- ReportLab or python-docx for document generation
+- HTML/CSS/JavaScript frontend
+
+**Option 2 (Node.js):**
+- Express.js backend
+- Puppeteer or Cheerio for scraping
+- PDFKit or docx for document generation
+- HTML/CSS/JavaScript frontend
+
+### Key Features:
+1. URL validation and error handling
+2. Content cleaning (remove scripts, ads, navigation)
+3. Preserve basic formatting (headings, paragraphs, lists)
+4. Generate clean, readable documents
+5. Automatic filename generation based on page title
+6. Progress indicators and user feedback
+7. Security measures against malicious URLs
+
+### File Structure:
+```
+/
+├── static/
+│   ├── style.css
+│   └── script.js
+├── templates/
+│   └── index.html
+├── main.py (or app.js)
+├── requirements.txt (or package.json)
+└── README.md
+```
+
+### Additional Considerations:
+- Implement rate limiting to prevent abuse
+- Add support for multiple document formats (PDF, DOCX, TXT)
+- Handle different types of websites gracefully
+- Add option to include images in the document
+- Implement basic content summarization if possible
+- Ensure the app works within Replit's environment constraints
+
+### Example User Flow:
+1. User enters a URL (e.g., news article, blog post)
+2. Clicks "Scrape & Generate Document"
+3. App scrapes the content and shows progress
+4. Document is generated and download link appears
+5. User clicks download to get the formatted document
+
+Please create a fully functional application with proper error handling, clean code structure, and a user-friendly interface. Include comments in the code explaining key functionality.
